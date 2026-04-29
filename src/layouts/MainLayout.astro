@@ -1,0 +1,82 @@
+---
+const { title } = Astro.props;
+
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <link rel="stylesheet" href="/src/styles/global.css" />
+  </head>
+  <body>
+    <Header />
+    <div class="scroll-progress"></div>
+    <main>
+      <slot />
+    </main>
+
+    <Footer /><script is:inline>
+      function initScrollProgress() {
+        const bar = document.querySelector(".scroll-progress");
+        if (!bar) return;
+
+        function update() {
+          const scrollTop = window.scrollY;
+          const docHeight =
+            document.documentElement.scrollHeight - window.innerHeight;
+
+          const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+
+          bar.style.width = progress + "%";
+        }
+
+        window.addEventListener("scroll", update, { passive: true });
+        update();
+      }
+
+      window.addEventListener("load", initScrollProgress);
+      document.addEventListener("astro:page-load", initScrollProgress);
+      function initReveal() {
+        const els = document.querySelectorAll(".reveal");
+
+        if (!els.length) return;
+
+        if (!("IntersectionObserver" in window)) {
+          els.forEach((el) => el.classList.add("in"));
+          return;
+        }
+
+        const io = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add("in");
+                io.unobserve(entry.target);
+              }
+            });
+          },
+          {
+            threshold: 0.15,
+            rootMargin: "0px 0px -10% 0px",
+          },
+        );
+
+        els.forEach((el) => io.observe(el));
+      }
+
+      // 🔥 CLAVE: esperar a que TODO esté cargado
+      window.addEventListener("load", initReveal);
+
+      // 🔥 CLAVE para navegación en Astro
+      document.addEventListener("astro:page-load", initReveal);
+    </script>
+  </body>
+</html>

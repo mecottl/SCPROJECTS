@@ -1,0 +1,45 @@
+---
+import MainLayout from "../../layouts/MainLayout.astro";
+import { projects } from "../../data/projects";
+import "../../styles/pages/projects.css";
+---
+
+<MainLayout
+  title="Proyectos — SC PROJECTS"
+  description="Galería de obras de SC PROJECTS."
+>
+
+<section class="section" style="padding-top:10rem;">
+  <div class="container">
+
+    <div class="section-head reveal">
+      <span class="eyebrow">Obras · 2016 — 2026</span>
+      <h1>Una galería <em>habitable</em>.</h1>
+      <p class="lead">
+        Selección de nuestras obras más destacadas.
+      </p>
+    </div>
+
+    <div class="gallery">
+      {projects.map((p, idx) => (
+        <a
+          href={`/proyectos/${p.slug}`}
+          class={`gallery__item ${p.size} reveal${idx % 4 ? ` delay-${idx % 4}` : ""}`}
+        >
+          <img src={p.cover.src} alt={p.title} loading="lazy" />
+
+          <div class="gallery__caption">
+            <div>
+              <h3>{p.title}</h3>
+              <span>{p.category} · {p.location}</span>
+            </div>
+            <p class="gallery__year">{p.year}</p>
+          </div>
+        </a>
+      ))}
+    </div>
+
+  </div>
+</section>
+
+</MainLayout>

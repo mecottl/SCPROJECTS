@@ -1,11 +1,299 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
+import MainLayout from "../layouts/MainLayout.astro";
+import FeaturedSlider from "../components/FeaturedSlider.astro";
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import founder1 from "../assets/Benjamin.webp";
+import founder2 from "../assets/Eduardo.webp";
+import "../styles/pages/home.css";
 ---
 
-<Layout>
-	<Welcome />
-</Layout>
+<MainLayout title="SC PROJECTS — Arquitectura y Diseño en Yucatán">
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero__bg">
+      <!-- <img src={heroImg.src} alt="" /> -->
+      <canvas id="hero-canvas"></canvas>
+    </div>
+
+    <div class="container hero__inner">
+      <span class="eyebrow">Firma de arquitectura, ingeniería y construcción · Yucatán</span>
+
+      <h1>
+        Arquitectura<br />
+        de <em>silencio</em><br />
+        y materia.
+      </h1>
+
+      <div class="hero__meta">
+        <p class="lead">
+          Diseñamos espacios donde la luz se mide en horas y la quietud se
+          vuelve estructura. Un estudio fundado en la disciplina de lo esencial.
+        </p>
+
+        <a href="/proyectos" class="btn">Ver proyectos →</a>
+      </div>
+    </div>
+
+    <div class="hero__scroll" aria-hidden="true">Scroll</div>
+  </section>
+<div class="page-content">
+
+  <!-- SLIDER -->
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">Selección de obra</span>
+        <h2>Proyectos como <em>narrativa</em>.</h2>
+      </div>
+    </div>
+
+    <div class="container">
+      <FeaturedSlider />
+    </div>
+  </section>
+
+  <!-- LIDERAZGO -->
+  <section class="section" id="liderazgo">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">Liderazgo</span>
+        <h2>Las manos detrás del estudio.</h2>
+
+        <p class="lead">
+          Dos arquitectos, una visión común: la arquitectura como diálogo íntimo
+          entre el lugar, el tiempo y la materia.
+        </p>
+      </div>
+
+      <div class="leaders">
+        <article class="leader">
+          <div class="leader__img">
+            <img
+              src={founder1.src}
+              alt="Retrato de Benjamín Salas"
+              loading="lazy"
+            />
+          </div>
+
+          <div class="leader__body">
+            <div>
+              <h3 class="leader__name">Benjamín A. Salas Nail</h3>
+              <p class="leader__role">Fundador y director de operaciones</p>
+            </div>
+
+            <span class="leader__no">— 01</span>
+          </div>
+        </article>
+
+        <article class="leader">
+          <div class="leader__img">
+            <img
+              src={founder2.src}
+              alt="Retrato de Eduardo Caso"
+              loading="lazy"
+            />
+          </div>
+
+          <div class="leader__body">
+            <div>
+              <h3 class="leader__name">Eduardo Caso García</h3>
+              <p class="leader__role">
+                Director ejecutivo y estratega financiero
+              </p>
+            </div>
+
+            <span class="leader__no">— 02</span>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <section class="section">
+    <div class="container">
+      <div class="stats">
+        <div class="stat">
+          <span class="stat__label">Proyectos</span>
+          <p class="stat__num">+50<span>.</span></p>
+          <p class="stat__desc">
+            Obras realizadas en residencial, cultural, hospitalidad y comercial.
+          </p>
+        </div>
+
+        <div class="stat">
+          <span class="stat__label">Trayectoria</span>
+          <p class="stat__num">+10 <span>años</span></p>
+          <p class="stat__desc">
+            De práctica continua refinando un lenguaje propio.
+          </p>
+        </div>
+
+        <div class="stat">
+          <span class="stat__label">Origen</span>
+          <p class="stat__num">Yucatán<span>.</span></p>
+          <p class="stat__desc">Presencia local con visión nacional.</p>
+        </div>
+        <div class="stat">
+          <span class="stat__label">Clientes</span>
+          <p class="stat__num">+100<span>.</span></p>
+          <p class="stat__desc">Clientes satisfechos.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- UBICACIÓN -->
+  <section class="section">
+    <div class="container">
+      <div class="location">
+        <div class="location__visual">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3722.9089268550506!2d-89.6221754246011!3d21.076299380584928!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8f5677ea104733d7%3A0xac80d3b3cd868762!2sFARCO%20Soluciones%20Integrales%20de%20Construcci%C3%B3n!5e0!3m2!1ses-419!2smx!4v1777419572063!5m2!1ses-419!2smx"
+            width="600"
+            height="450"
+            style="border:0;"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"></iframe>
+          <span class="location__pin" aria-hidden="true"></span>
+        </div>
+
+        <div class="location__body">
+          <span class="eyebrow">Ubicación</span>
+          <h2>Hechos en <em>Yucatán</em>.</h2>
+
+          <p class="lead">
+            Operamos desde Mérida, una ciudad donde la piedra blanca y la luz
+            cenital nos enseñaron a proyectar. Cada obra que firmamos lleva la
+            memoria del territorio.
+          </p>
+
+          <a href="/contacto" class="link-arrow">Visitar el estudio →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+</MainLayout>
+  <script>
+    const frameCount = 80;
+
+    const currentFrame = (index: number) =>
+      `/frames/scrollanimation2_${String(index + 1).padStart(3, "0")}.png`;
+
+    const images: HTMLImageElement[] = [];
+    const canvas = document.getElementById("hero-canvas") as HTMLCanvasElement | null;
+    if (!canvas) {
+      throw new Error("Hero canvas not found");
+    }
+
+    const context = canvas.getContext("2d");
+    if (!context) {
+      throw new Error("Hero canvas context not available");
+    }
+    
+    const dpr = window.devicePixelRatio || 1;
+    canvas.width = window.innerWidth * dpr;
+    canvas.height = window.innerHeight * dpr;
+    canvas.style.width = window.innerWidth + "px";
+    canvas.style.height = window.innerHeight + "px";
+    context.scale(dpr, dpr);
+
+    for (let i = 0; i < frameCount; i++) {
+      const img = new Image();
+      img.src = currentFrame(i);
+      images.push(img);
+    }
+
+function drawImageCover(img: HTMLImageElement, blur = 0) {
+  const canvasWidth = window.innerWidth;
+  const canvasHeight = window.innerHeight;
+
+  const canvasRatio = canvasWidth / canvasHeight;
+  const imgRatio = img.width / img.height;
+
+  let drawWidth: number;
+  let drawHeight: number;
+  let offsetX: number;
+  let offsetY: number;
+
+  if (imgRatio > canvasRatio) {
+    drawHeight = canvasHeight;
+    drawWidth = img.width * (canvasHeight / img.height);
+    offsetX = (canvasWidth - drawWidth) / 2;
+    offsetY = 0;
+  } else {
+    drawWidth = canvasWidth;
+    drawHeight = img.height * (canvasWidth / img.width);
+    offsetX = 0;
+    offsetY = (canvasHeight - drawHeight) / 2;
+  }
+
+  context?.clearRect(0, 0, canvasWidth, canvasHeight);
+
+  context!.filter = `
+    grayscale(0.4)
+    contrast(1.05)
+    brightness(0.5)
+    blur(${blur}px)
+  `;
+
+  context!.drawImage(img, offsetX, offsetY, drawWidth, drawHeight);
+
+  context!.filter = "none";
+}
+
+    // 🖼️ primer frame
+    const firstImage = images[0];
+    if (!firstImage) {
+      throw new Error("Hero animation has no frames");
+    }
+
+    firstImage.onload = () => {
+      drawImageCover(firstImage);
+    };
+
+    // 🚀 scroll optimizado
+    let ticking = false;
+
+    window.addEventListener("scroll", () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          const scrollTop = window.scrollY;
+          const maxScroll = document.body.scrollHeight - window.innerHeight;
+
+          const scrollFraction = maxScroll > 0 ? scrollTop / maxScroll : 0;
+
+          const frameIndex = Math.min(
+            frameCount - 1,
+            Math.floor(scrollFraction * frameCount),
+          );
+
+          const img = images[frameIndex];
+          if (img?.complete) {
+            drawImageCover(img);
+          }
+
+          ticking = false;
+        });
+
+        ticking = true;
+      }
+    });
+
+    // 🔄 resize fix (muy importante)
+    window.addEventListener("resize", () => {
+      const dpr = window.devicePixelRatio || 1;
+
+      canvas.width = window.innerWidth * dpr;
+      canvas.height = window.innerHeight * dpr;
+      canvas.style.width = window.innerWidth + "px";
+      canvas.style.height = window.innerHeight + "px";
+
+      context.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+      drawImageCover(firstImage);
+    });
+  </script>

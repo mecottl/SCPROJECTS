@@ -1,0 +1,121 @@
+---
+import { featuredSlides } from "../data/projects";
+import "../styles/components/featured-slider.css";
+// console.log(featuredSlides);
+---
+
+<div class="slider reveal">
+  <div class="slider__viewport">
+
+    {featuredSlides.map((p, idx) => (
+      <div
+        class={`slider__slide ${idx === 0 ? "" : "active"}`}
+        data-index={idx}
+        aria-hidden={idx !== 0}
+      >
+        <img src={p.cover.src} alt={p.title} loading={idx === 0 ? "eager" : "lazy"} />
+
+        <div class="slider__overlay">
+          <span class="eyebrow">{p.category} · {p.year}</span>
+          <h2>{p.title}</h2>
+
+          <a
+            href={`/proyectos/${p.slug}`}
+            class="link-arrow"
+            style="margin-top: 1rem;"
+          >
+            Ver proyecto →
+          </a>
+        </div>
+      </div>
+    ))}
+
+    <!-- DOTS -->
+    <div class="slider__dots" role="tablist">
+      {featuredSlides.map((_, idx) => (
+        <button
+          class={idx === 0 ? "active" : ""}
+          data-dot={idx}
+          aria-label={`Ir al proyecto ${idx + 1}`}
+        />
+      ))}
+    </div>
+
+    <!-- NAV -->
+    <div class="slider__nav">
+      <button data-prev aria-label="Anterior">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M15 18l-6-6 6-6" />
+        </svg>
+      </button>
+
+      <button data-next aria-label="Siguiente">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M9 6l6 6-6 6" />
+        </svg>
+      </button>
+    </div>
+
+  </div>
+</div><script type="module">
+  function initSlider() {
+    const root = document.querySelector(".slider");
+    if (!root) return;
+
+    const slides = root.querySelectorAll(".slider__slide");
+    const dots = root.querySelectorAll("[data-dot]");
+    const prevBtn = root.querySelector("[data-prev]");
+    const nextBtn = root.querySelector("[data-next]");
+
+    let i = 0;
+    const total = slides.length;
+
+    function update() {
+      slides.forEach((slide, idx) => {
+        slide.classList.toggle("active", idx === i);
+        slide.setAttribute("aria-hidden", idx !== i);
+      });
+
+      dots.forEach((dot, idx) => {
+        dot.classList.toggle("active", idx === i);
+      });
+    }
+
+    function next() {
+      i = (i + 1) % total;
+      update();
+    }
+
+    function prev() {
+      i = (i - 1 + total) % total;
+      update();
+    }
+
+    let interval = setInterval(next, 6000);
+
+    function resetInterval() {
+      clearInterval(interval);
+      interval = setInterval(next, 6000);
+    }
+
+    nextBtn?.addEventListener("click", () => {
+      next();
+      resetInterval();
+    });
+
+    prevBtn?.addEventListener("click", () => {
+      prev();
+      resetInterval();
+    });
+
+    dots.forEach((dot, idx) => {
+      dot.addEventListener("click", () => {
+        i = idx;
+        update();
+        resetInterval();
+      });
+    });
+  }
+
+  window.addEventListener("DOMContentLoaded", initSlider);
+</script>

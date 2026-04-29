@@ -1,0 +1,75 @@
+---
+const pathname = Astro.url.pathname;
+
+const isActive = (p = "/") =>
+  p === "/" ? pathname === "/" : pathname.startsWith(p);
+
+import "../styles/components/header.css";
+---
+
+<header class="header">
+  <div class="container header__inner">
+    
+    <a href="/" class="logo" aria-label="SC PROJECTS — Inicio">
+      <img src="/Logo.png" alt="SC PROJECTS" class="logo-img"/>
+       <!-- SC PROJECTS -->
+    </a>
+
+    <nav class="nav">
+      <a href="/" class={isActive("/") ? "active" : ""}>Inicio</a>
+      <a href="/quienes-somos" class={isActive("/quienes-somos") ? "active" : ""}>
+        Quiénes somos
+      </a>
+      <a href="/proyectos" class={isActive("/proyectos") ? "active" : ""}>
+        Proyectos
+      </a>
+      <a href="/contacto" class={isActive("/contacto") ? "active" : ""}>
+        Contacto
+      </a>
+    </nav>
+
+    <button
+      class="menu-btn"
+      aria-label="Menú"
+      aria-expanded="false"
+    >
+      <span></span><span></span><span></span>
+    </button>
+
+  </div>
+</header>
+
+<script type="module">
+  const header = document.querySelector(".header");
+  const menuBtn = document.querySelector(".menu-btn");
+  const nav = document.querySelector(".nav");
+
+  let open = false;
+
+  // scroll
+  const onScroll = () => {
+    header?.classList.toggle("header--scrolled", window.scrollY > 24);
+  };
+
+  window.addEventListener("scroll", onScroll, { passive: true });
+  onScroll();
+
+  // toggle menú
+  menuBtn?.addEventListener("click", () => {
+    open = !open;
+
+    menuBtn.classList.toggle("open", open);
+    nav.classList.toggle("open", open);
+    menuBtn.setAttribute("aria-expanded", String(open));
+  });
+
+  // cerrar menú al navegar
+  document.querySelectorAll(".nav a").forEach((link) => {
+    link.addEventListener("click", () => {
+      open = false;
+      menuBtn?.classList.remove("open");
+      nav?.classList.remove("open");
+      menuBtn?.setAttribute("aria-expanded", "false");
+    });
+  });
+</script>

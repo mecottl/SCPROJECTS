@@ -1,0 +1,122 @@
+---
+import MainLayout from "../../layouts/MainLayout.astro";
+import { projects } from "../../data/projects";
+import "../../styles/pages/projects.css";
+
+// 👇 esto reemplaza loader()
+export async function getStaticPaths() {
+  return projects.map((p) => ({
+    params: { slug: p.slug },
+    props: { project: p },
+  }));
+}
+
+const { project } = Astro.props;
+
+// fallback simple
+if (!project) {
+  throw new Error("Proyecto no encontrado");
+}
+
+const others = projects
+  .filter((p) => p.slug !== project.slug)
+  .slice(0, 3);
+---
+
+<MainLayout
+  title={`${project.title} — SC PROJECTS`}
+  description={project.description[0]}
+>
+
+<!-- HERO -->
+<section class="project-hero">
+  <div class="container">
+
+    <div class="project-hero__title reveal">
+      <span class="eyebrow">{project.category} · {project.year}</span>
+      <h1>{project.title}</h1>
+    </div>
+
+    <div class="project-hero__cover reveal delay-1">
+      <img src={project.cover.src} alt={project.title} />
+    </div>
+
+    <div class="project-meta reveal delay-2">
+      <div class="project-meta__item">
+        <span>Ubicación</span>
+        <strong>{project.location}</strong>
+      </div>
+
+      <div class="project-meta__item">
+        <span>Superficie</span>
+        <strong>{project.area}</strong>
+      </div>
+
+      <div class="project-meta__item">
+        <span>Año</span>
+        <strong>{project.year}</strong>
+      </div>
+
+      <div class="project-meta__item">
+        <span>Estado</span>
+        <strong>{project.status}</strong>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- BODY -->
+<section class="container">
+
+  <div class="project-body">
+    <div class="reveal">
+      <span class="eyebrow">Memoria del proyecto</span>
+    </div>
+
+    <div class="reveal delay-1">
+      {project.description.map((p) => (
+        <p>{p}</p>
+      ))}
+    </div>
+  </div>
+
+  <div class="project-grid ">
+    {project.gallery.map((g, i) => (
+      <div class={`project-grid__item ${g.layout} reveal delay-${i % 4}`}>
+        <img src={g.src.src} alt={`${project.title} — vista ${i + 1}`} />
+      </div>
+    ))}
+  </div>
+
+</section>
+
+<!-- OTRAS -->
+<section class="section">
+  <div class="container">
+
+    <div class="section-head reveal">
+      <span class="eyebrow">Otras obras</span>
+      <h2>Continuar explorando.</h2>
+    </div>
+
+    <div class="gallery">
+      {others.map((p) => (
+        <a href={`/proyectos/${p.slug}`} class="gallery__item sm reveal">
+          <img src={p.cover.src} alt={p.title} />
+
+          <div class="gallery__caption">
+            <div>
+              <h3>{p.title}</h3>
+              <span>{p.category}</span>
+            </div>
+            <p class="gallery__year">{p.year}</p>
+          </div>
+        </a>
+      ))}
+    </div>
+
+  </div>
+</section>
+
+</MainLayout>

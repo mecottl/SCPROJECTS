@@ -1,0 +1,102 @@
+﻿/* ========== CONTACT ========== */
+.contact-hero {
+  padding-top: clamp(7rem, 12vw, 10rem);
+  padding-bottom: 3rem;
+}
+.contact-hero h1 em {
+  font-style: italic;
+  color: var(--bone-dim);
+}
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: clamp(2rem, 5vw, 5rem);
+  align-items: start;
+  padding-bottom: var(--section-y);
+}
+.form {
+  display: grid;
+  gap: 1.5rem;
+}
+.form__row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+.field {
+  display: grid;
+  gap: 0.5rem;
+}
+.field label {
+  font-size: 0.7rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--bone-mute);
+}
+.field input,
+.field textarea,
+.field select {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--line-strong);
+  padding: 0.85rem 0;
+  color: var(--bone);
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.4s var(--ease);
+}
+.field input:focus,
+.field textarea:focus,
+.field select:focus {
+  border-bottom-color: var(--bone);
+}
+.field textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+.field input::placeholder,
+.field textarea::placeholder {
+  color: var(--bone-mute);
+}
+@media (max-width: 640px) {
+  .form__row { grid-template-columns: 1fr; }
+}
+
+.contact-info {
+  display: grid;
+  gap: 2rem;
+  padding: clamp(1.5rem, 3vw, 2.5rem);
+  border: 1px solid var(--line);
+  background: var(--carbon-1);
+}
+.contact-info__item {
+  display: grid;
+  gap: 0.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--line);
+}
+.contact-info__item:last-child { border-bottom: none; padding-bottom: 0; }
+.contact-info__item span {
+  font-size: 0.7rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--bone-mute);
+}
+.contact-info__item a,
+.contact-info__item p {
+  font-family: var(--font-serif);
+  font-size: 1.3rem;
+  color: var(--bone);
+  transition: color 0.3s var(--ease);
+}
+.contact-info__item a:hover { color: var(--bone-dim); }
+
+.toast {
+  margin-top: 1rem;
+  padding: 1rem 1.25rem;
+  border: 1px solid var(--line-strong);
+  background: var(--carbon-2);
+  font-size: 0.9rem;
+  color: var(--bone);
+}
+
