@@ -1,4 +1,5 @@
 ---
+import { Image } from "astro:assets";
 import MainLayout from "../../layouts/MainLayout.astro";
 import { projects } from "../../data/projects";
 import "../../styles/pages/projects.css";
@@ -21,6 +22,10 @@ if (!project) {
 const others = projects
   .filter((p) => p.slug !== project.slug)
   .slice(0, 3);
+  
+  const INITIAL_CONUT = 12;
+  const initialGallery = project.gallery.slice(0, INITIAL_CONUT);
+  
 ---
 
 <MainLayout
@@ -73,7 +78,7 @@ const others = projects
     <div class="reveal">
       <span class="eyebrow">Memoria del proyecto</span>
     </div>
-
+    
     <div class="reveal delay-1">
       {project.description.map((p) => (
         <p>{p}</p>
@@ -81,13 +86,22 @@ const others = projects
     </div>
   </div>
 
-  <div class="project-grid ">
-    {project.gallery.map((g, i) => (
-      <div class={`project-grid__item ${g.layout} reveal delay-${i % 4}`}>
-        <img src={g.src.src} alt={`${project.title} — vista ${i + 1}`} />
-      </div>
-    ))}
-  </div>
+ <div class="project-grid" id="project-grid">
+  {initialGallery.map((g, i) => (
+    <div class={`project-grid__item ${g.layout} reveal delay-${i % 4}`}>
+    
+
+<Image
+  src={g.src}
+  alt={`${project.title} — vista ${i + 1}`}
+  loading={i < 4 ? "eager" : "lazy"}
+  widths={[400, 800, 1200]}
+  sizes="(max-width: 768px) 100vw, 50vw"
+/>
+    </div>
+  ))}
+</div>
+<div id="load-more-trigger"></div>
 
 </section>
 
@@ -120,3 +134,10 @@ const others = projects
 </section>
 
 </MainLayout>
+
+<script type="application/json" id="gallery-data">
+  {JSON.stringify(project.gallery.map(g => ({
+    src: g.src.src,
+    layout: g.layout
+  })))}
+</script>
