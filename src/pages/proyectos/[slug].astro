@@ -1,10 +1,9 @@
 ---
-import { Image } from "astro:assets";
 import MainLayout from "../../layouts/MainLayout.astro";
 import { projects } from "../../data/projects";
 import "../../styles/pages/projects.css";
 
-// 👇 esto reemplaza loader()
+// rutas dinámicas
 export async function getStaticPaths() {
   return projects.map((p) => ({
     params: { slug: p.slug },
@@ -14,7 +13,7 @@ export async function getStaticPaths() {
 
 const { project } = Astro.props;
 
-// fallback simple
+// fallback
 if (!project) {
   throw new Error("Proyecto no encontrado");
 }
@@ -22,10 +21,10 @@ if (!project) {
 const others = projects
   .filter((p) => p.slug !== project.slug)
   .slice(0, 3);
-  
-  const INITIAL_CONUT = 12;
-  const initialGallery = project.gallery.slice(0, INITIAL_CONUT);
-  
+
+// 👇 cantidad inicial visible
+const INITIAL_COUNT = 12;
+const initialGallery = project.gallery.slice(0, INITIAL_COUNT);
 ---
 
 <MainLayout
@@ -43,7 +42,8 @@ const others = projects
     </div>
 
     <div class="project-hero__cover reveal delay-1">
-      <img src={project.cover.src} alt={project.title} />
+      <!-- 👇 ahora cover es string -->
+      <img src={project.cover} alt={project.title} />
     </div>
 
     <div class="project-meta reveal delay-2">
@@ -86,24 +86,22 @@ const others = projects
     </div>
   </div>
 
- <div class="project-grid" id="project-grid">
-  {initialGallery.map((g, i) => (
-    <div class={`project-grid__item ${g.layout} reveal delay-${i % 4}`}>
-    
+  <!-- GALERÍA -->
+  <div class="project-grid" id="project-grid">
+    {initialGallery.map((g, i) => (
+      <div class={`project-grid__item ${g.layout} reveal delay-${i % 4}`}>
+        <img
+          src={g.src}
+          alt={`${project.title} — vista ${i + 1}`}
+          loading={i < 4 ? "eager" : "lazy"}
+        />
+      </div>
+    ))}
+  </div>
 
-<Image
-  src={g.src}
-  alt={`${project.title} — vista ${i + 1}`}
-  loading={i < 4 ? "eager" : "lazy"}
-  widths={[400, 800, 1200]}
-  sizes="(max-width: 768px) 100vw, 50vw"
-/>
-    </div>
-  ))}
-</div>
-<div id="load-more-trigger"></div>
-
+  
 </section>
+<div id="load-more-trigger" style="height: 100px;"></div>
 
 <!-- OTRAS -->
 <section class="section">
@@ -117,7 +115,7 @@ const others = projects
     <div class="gallery">
       {others.map((p) => (
         <a href={`/proyectos/${p.slug}`} class="gallery__item sm reveal">
-          <img src={p.cover.src} alt={p.title} />
+          <img src={p.cover} alt={p.title} />
 
           <div class="gallery__caption">
             <div>
@@ -134,10 +132,6 @@ const others = projects
 </section>
 
 </MainLayout>
+<script id="gallery-data" type="application/json" set:html={JSON.stringify(project.gallery)}></script>
 
-<script type="application/json" id="gallery-data">
-  {JSON.stringify(project.gallery.map(g => ({
-    src: g.src.src,
-    layout: g.layout
-  })))}
-</script>
+<script type="module" src="/scripts/gallery.js"></script>

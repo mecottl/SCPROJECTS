@@ -5,13 +5,15 @@ const isActive = (p = "/") =>
   p === "/" ? pathname === "/" : pathname.startsWith(p);
 
 import "../styles/components/header.css";
+import { Image } from "astro:assets";
+import scLogo from "../assets/scproject.png";
 ---
 
 <header class="header">
   <div class="container header__inner">
     
     <a href="/" class="logo" aria-label="SC PROJECTS — Inicio">
-      <img src="/Logo.png" alt="SC PROJECTS" class="logo-img"/>
+      <Image src={scLogo} alt="SC PROJECTS" class="logo-img"/>
        <!-- SC PROJECTS -->
     </a>
 

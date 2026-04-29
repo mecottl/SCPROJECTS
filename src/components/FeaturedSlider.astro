@@ -13,7 +13,7 @@ import "../styles/components/featured-slider.css";
         data-index={idx}
         aria-hidden={idx !== 0}
       >
-        <img src={p.cover.src} alt={p.title} loading={idx === 0 ? "eager" : "lazy"} />
+        <img src={p.cover} alt={p.title} loading={idx === 0 ? "eager" : "lazy"} />
 
         <div class="slider__overlay">
           <span class="eyebrow">{p.category} · {p.year}</span>

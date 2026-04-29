@@ -1,10 +1,33 @@
 ﻿/* ========== ABOUT ========== */
 .about-hero {
+  position: relative;
   padding-top: clamp(7rem, 12vw, 10rem);
   padding-bottom: var(--section-y);
+
+  background-image: url("../../assets/quienes-somos.webp");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  overflow: hidden;
 }
+
+.about-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 1;
+}
+
+.about-hero .container {
+  position: relative;
+  z-index: 2; /* 👈 asegura que el texto quede arriba */
+}
+
 .about-hero h1 {
   max-width: 14ch;
+  filter: opacity(1);
 }
 .about-hero h1 em {
   font-style: italic;

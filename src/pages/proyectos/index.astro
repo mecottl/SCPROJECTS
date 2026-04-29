@@ -26,7 +26,7 @@ import "../../styles/pages/projects.css";
           href={`/proyectos/${p.slug}`}
           class={`gallery__item ${p.size} reveal${idx % 4 ? ` delay-${idx % 4}` : ""}`}
         >
-          <img src={p.cover.src} alt={p.title} loading="lazy" />
+          <img src={p.cover} alt={p.title} loading="lazy" />
 
           <div class="gallery__caption">
             <div>
